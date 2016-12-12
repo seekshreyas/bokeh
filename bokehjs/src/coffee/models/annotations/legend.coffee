@@ -206,6 +206,8 @@ export class LegendView extends AnnotationView
           @visuals.inactive_fill.set_value(ctx)
           ctx.fill()
 
+    return null
+
   _get_size: () ->
     bbox = @compute_legend_bbox()
     side = @model.panel.side
