@@ -1,14 +1,13 @@
 import * as _ from "underscore"
 import * as $ from "jquery"
-import {Model} from "../../model"
 import * as p from "../../core/properties"
 import {GE, EQ, Strength, Variable} from "../../core/layout/solver"
 
+import {Layoutable, LayoutableView} from "./layoutable"
 import {build_views} from "../../core/build_views"
-import {BokehView} from "../../core/bokeh_view"
 import {logger} from "../../core/logging"
 
-export class LayoutDOMView extends BokehView
+export class LayoutDOMView extends LayoutableView
 
   initialize: (options) ->
     super(options)
@@ -146,7 +145,7 @@ export class LayoutDOMView extends BokehView
 
 
 
-export class LayoutDOM extends Model
+export class LayoutDOM extends Layoutable
   type: "LayoutDOM"
 
   initialize: (attrs, options) ->
@@ -259,7 +258,3 @@ export class LayoutDOM extends Model
       sizing_mode: [ p.SizingMode, "fixed" ]
       css_classes: [ p.Array               ]
     }
-
-  @internal {
-      layoutable: [ p.Bool, true ]
-  }
