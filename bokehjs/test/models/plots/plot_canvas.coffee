@@ -272,14 +272,6 @@ describe "PlotCanvasView resize", ->
     expect(spy.calledOnce).to.be.true
     expect(spy.calledWith([width, height], true)).to.be.true
 
-  it "should call canvas.set_dims and trigger if plot is_root", ->
-    spy = sinon.spy(@plot_canvas_view.canvas_view, 'set_dims')
-    @plot_canvas._is_root = true
-    @plot_canvas.sizing_mode = 'stretch_both'
-    @plot_canvas_view.resize()
-    expect(spy.calledOnce).to.be.true
-    expect(spy.calledWith([width, height], true)).to.be.true
-
   it "should call solver.suggest_value for width and height if sizing_mode is fixed", ->
     spy = sinon.spy(@plot_canvas_view.canvas_view, 'set_dims')
     @plot_canvas.sizing_mode = 'fixed'
