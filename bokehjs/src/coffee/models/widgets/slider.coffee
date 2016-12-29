@@ -15,9 +15,6 @@ export class SliderView extends InputWidgetView
   initialize: (options) ->
     super(options)
     @listenTo(@model, 'change', @render)
-    @$el.empty()
-    html = @template(@model.attributes)
-    @$el.html(html)
     @callbackWrapper = null
     if @model.callback_policy == 'continuous'
       @callbackWrapper = () ->
@@ -26,10 +23,12 @@ export class SliderView extends InputWidgetView
       @callbackWrapper = _.throttle(() ->
         @model.callback?.execute(@model)
       , @model.callback_throttle)
-    @render()
 
   render: () ->
     super()
+    @$el.empty()
+    html = @template(@model.attributes)
+    @$el.html(html)
     max = @model.end
     min = @model.start
     step = @model.step or ((max - min)/50)

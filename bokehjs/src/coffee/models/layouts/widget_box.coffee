@@ -12,16 +12,11 @@ import {LayoutDOM, LayoutDOMView} from "../layouts/layout_dom"
 export class WidgetBoxView extends LayoutDOMView
   className: "bk-widget-box"
 
-  initialize: (options) ->
-    super(options)
-    @render()
-
   bind_bokeh_events: () ->
     super()
     @listenTo(@model, 'change:children', () => @build_child_views())
 
   render: () ->
-
     s = @model.document.solver()
 
     if @model.sizing_mode is 'fixed' or @model.sizing_mode == 'scale_height'

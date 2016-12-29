@@ -14,7 +14,6 @@ export class AbstractButtonView extends WidgetView
     super(options)
     @icon_views = {}
     @listenTo(@model, 'change', @render)
-    @render()
 
   render: () ->
     super()

@@ -21,7 +21,6 @@ export class CellEditorView extends BokehView
     @args = args
     @model = @args.column.editor
     super()
-    @render()
 
   render: () ->
     super()

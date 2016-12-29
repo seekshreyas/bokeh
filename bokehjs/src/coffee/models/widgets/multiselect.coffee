@@ -14,7 +14,6 @@ export class MultiSelectView extends InputWidgetView
 
   initialize: (options) ->
     super(options)
-    @render()
     @listenTo(@model, 'change:value', @render_selection)
     @listenTo(@model, 'change:options', @render)
     @listenTo(@model, 'change:name', @render)
