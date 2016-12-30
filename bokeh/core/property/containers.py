@@ -37,6 +37,11 @@ automatically synchronized between BokehJS and a Bokeh server:
 
 The classes in this module provide this functionality.
 
+.. note::
+    These classes form part of the very low-level machinery that implements
+    the Bokeh model and property system. It is unlikely that any of these
+    classes or their methods will be applicable to any standard usage or to
+    anyone who is not directly developing on Bokeh's own infrastructure.
 
 '''
 from __future__ import absolute_import, print_function
@@ -287,7 +292,7 @@ class PropertyValueDict(PropertyValueContainer, dict):
 
     # don't wrap with notify_owner --- notifies owners explicitly
     def _stream(self, doc, source, new_data, rollover=None, setter=None):
-        ''' Internal implmentation to handle special-casing stream events
+        ''' Internal implementation to handle special-casing stream events
         on ``ColumnDataSource`` columns.
 
         Normally any changes to the ``.data`` dict attribute on a
@@ -302,9 +307,9 @@ class PropertyValueDict(PropertyValueContainer, dict):
         To accomplish this, this function bypasses the wrapped methods on
         ``PropertyValueDict`` and uses the unwrapped versions on the dict
         superclass directly. It then explicitly makes a notification, adding
-        a special ``ColumnsStreamedEvent`` hint to the message that contains
-        only the small streamed data and that BokehJS can apply efficiently
-        to synchronize.
+        a special ``ColumnsStreamedEvent`` hint to the message containing
+        only the small streamed data that BokehJS needs in order to
+        efficiently synchronize.
 
         .. warning::
             This function assumes the integrity of ``new_data`` has already
@@ -327,14 +332,14 @@ class PropertyValueDict(PropertyValueContainer, dict):
                 if rollover is not None:
                     del L[:-rollover]
 
-        from ..document import ColumnsStreamedEvent
+        from ...document import ColumnsStreamedEvent
 
         self._notify_owners(old,
                             hint=ColumnsStreamedEvent(doc, source, new_data, rollover, setter))
 
     # don't wrap with notify_owner --- notifies owners explicitly
     def _patch(self, doc, source, patches, setter=None):
-        ''' Internal implmentation to handle special-casing patch events
+        ''' Internal implementation to handle special-casing patch events
         on ``ColumnDataSource`` columns.
 
         Normally any changes to the ``.data`` dict attribute on a
@@ -349,9 +354,9 @@ class PropertyValueDict(PropertyValueContainer, dict):
         To accomplish this, this function bypasses the wrapped methods on
         ``PropertyValueDict`` and uses the unwrapped versions on the dict
         superclass directly. It then explicitly makes a notification, adding
-        a special ``ColumnsPatchedEvent`` hint to the message that contains
-        only the small streamed data and that BokehJS can apply efficiently
-        to synchronize.
+        a special ``ColumnsPatchedEvent`` hint to the message containing
+        only the small patched data that BokehJS needs in order to efficiently
+        synchronize.
 
         .. warning::
             This function assumes the integrity of ``new_data`` has already
@@ -364,7 +369,7 @@ class PropertyValueDict(PropertyValueContainer, dict):
             for ind, value in patch:
                 self[name][ind] = value
 
-        from ..document import ColumnsPatchedEvent
+        from ...document import ColumnsPatchedEvent
 
         self._notify_owners(old,
                             hint=ColumnsPatchedEvent(doc, source, patches, setter))

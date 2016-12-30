@@ -7,10 +7,12 @@ import pandas as pd
 from copy import copy
 
 from bokeh.core.properties import (
-    HasProps, NumberSpec, ColorSpec, Bool, Int, Float, Complex, String,
+    NumberSpec, ColorSpec, Bool, Int, Float, Complex, String,
     Regex, Seq, List, Dict, Tuple, Array, Instance, Any, Interval, Either,
     Enum, Color, Align, DashPattern, Size, Percent, Angle, AngleSpec,
     DistanceSpec, FontSizeSpec, Override, Include, MinMaxBounds, TitleProp)
+
+from bokeh.core.has_props import HasProps
 
 from bokeh.models import Plot
 from bokeh.models.annotations import Title
